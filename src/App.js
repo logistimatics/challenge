@@ -19,8 +19,6 @@ class App extends Component {
     }
   }
 
-  followOnIg = (user) => console.log('user', user)
-
   handleLogin = (token, redirect) => {
     this.updateUserToken(token, redirect);
   }

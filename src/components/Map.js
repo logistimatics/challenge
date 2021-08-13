@@ -48,21 +48,12 @@ export default class ReactMap extends Component {
     bounds: null,
   };
 
-  renderDevice = (device) => {
-    const selectedDate = moment(this.props.selectedDate.toLocaleDateString('en-US')).startOf("D");
-    const { id, name, batteryPercentage } = device;
-    const lat = get(device, ['positionsByDeviceId', 'nodes', 0, 'latitude']);
-    const lng = get(device, ['positionsByDeviceId', 'nodes', 0, 'longitude']);
-    const address = get(device, ['positionsByDeviceId', 'nodes', 0, 'address']);
-    const positionAt = get(device, ['positionsByDeviceId', 'nodes', 0, 'positionAt']);
+  renderMarker = (node, id, name, batteryPercentage) => {
+    const lat = node.latitude;
+    const lng = node.longitude;
+    const address = node.address;
+    const positionAt = node.positionAt;
 
-    const start = moment(selectedDate).startOf("D");
-    const end = moment(selectedDate).endOf("D");
-
-    const selectedDateNodes = get(device, ['positionsByDeviceId', 'nodes']).filter(node => {
-      return moment(node.positionAt).isBefore(end) && moment(node.positionAt).isAfter(start);
-    });
-    
     if (lat || lng) {
       return (
         <>
@@ -92,6 +83,20 @@ export default class ReactMap extends Component {
     } else {
       return null;
     }
+  }
+
+  renderDevice = (device) => {
+    const selectedDate = moment(this.props.selectedDate.toLocaleDateString('en-US')).startOf("D");
+    const { id, name, batteryPercentage } = device;
+
+    const start = moment(selectedDate).startOf("D");
+    const end = moment(selectedDate).endOf("D");
+
+    const selectedDateNodes = get(device, ['positionsByDeviceId', 'nodes']).filter(node => {
+      return moment(node.positionAt).isBefore(end) && moment(node.positionAt).isAfter(start);
+    });
+
+    return selectedDateNodes.map(node => this.renderMarker(node, id, name, batteryPercentage));
   };
 
   render() {
