@@ -20,7 +20,7 @@ export const DEVICE_LOCATIONS = gql`
         id
         name
         batteryPercentage
-        positionsByDeviceId(first: 1, orderBy: POSITION_AT_DESC) {
+        positionsByDeviceId(orderBy: POSITION_AT_DESC) {
           nodes {
             id
             positionAt

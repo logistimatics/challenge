@@ -2,7 +2,6 @@ import ApolloClient from 'apollo-boost';
 
 export const SERVER = 'http://localhost:5002';
 export let TOKEN = null;
-export const iPromiseThisVariableIsUselessRemoveMe = null;
 
 export const client = new ApolloClient({
   uri: `${SERVER}/graphql`,
