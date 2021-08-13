@@ -14,24 +14,21 @@ export const USER = gql`
 export const withUser = graphql(USER);
 
 export const DEVICE_LOCATIONS = gql`
-  query DeviceLocations {
-    allDevices {
+  query PositionsByDateRange($upper: Datetime!, $lower: Datetime!) {
+    positionsByDateRange(upper: $upper, lower: $lower) {
       nodes {
+        deviceId
         id
-        name
-        batteryPercentage
-        positionsByDeviceId(first: 1, orderBy: POSITION_AT_DESC) {
-          nodes {
-            id
-            positionAt
-            address
-            latitude
-            longitude
-          }
+        latitude
+        longitude
+        positionAt
+        address
+        deviceByDeviceId {
+          name
+          batteryPercentage
+          userId
         }
       }
     }
   }
 `;
-
-export const withDeviceLocations = graphql(DEVICE_LOCATIONS);

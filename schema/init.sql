@@ -95,6 +95,12 @@ create table logistimatics.position (
   address     text
 );
 
+create function logistimatics.positions_by_date_range(lower timestamp, upper timestamp) returns setof logistimatics.position as $$
+  select *
+  from logistimatics.position as position
+  where position.position_at between lower and upper
+$$ language sql stable;
+
 grant select on table logistimatics.device to logistimatics_user;
 grant update (name) on table logistimatics.device to logistimatics_user;
 
