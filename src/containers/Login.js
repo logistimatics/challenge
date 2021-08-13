@@ -3,8 +3,6 @@ import Login from '../components/Login';
 
 class LoginContainer extends Component {
   render() {
-    const userName = 'demo@logistimatics.com';
-    const password = 'password';
     return (
       <section className="fdb-block">
         <div className="container">

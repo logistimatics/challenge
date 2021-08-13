@@ -8,7 +8,6 @@ import {
 import LoaderButton from './LoaderButton';
 import Error from './Error';
 import { SERVER } from '../config';
-import ReactDatePicker from 'react-datepicker';
 class Login extends Component {
   state = {
     isLoading: false,

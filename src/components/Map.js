@@ -9,7 +9,6 @@ import {
   LayerGroup,
   Tooltip,
   ScaleControl,
-  Polyline,
   ZoomControl,
 } from 'react-leaflet';
 import L, {

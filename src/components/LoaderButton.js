@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-import ReactDatePicker from 'react-datepicker';
 import './LoaderButton.css';
 
 export default ({ isLoading, text, loadingText, disabled = false, ...props }) => (
