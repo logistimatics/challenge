@@ -23,7 +23,6 @@ export default class ReactMap extends Component {
   static getDerivedStateFromProps(props, state) {
     const bounds = latLngBounds([]);
     const devices = get(props, ['devices']) || [];
-    console.log('props', props)
 
     devices.forEach(function (device) {
       const lat = get(device, ['positionsByDeviceId', 'nodes', 0, 'latitude']);
@@ -48,11 +47,10 @@ export default class ReactMap extends Component {
     satellite: (localStorage.getItem(LAYER_KEY) === 'Satellite'),
     "Show current location": !(localStorage.getItem("Show current location") === 'false'),
     bounds: null,
-    selectedDate: moment('06/21/2020').startOf("D"),
   };
 
   renderDevice = (device) => {
-    const { selectedDate } = this.state;
+    const selectedDate = moment(this.props.selectedDate.toLocaleDateString('en-US')).startOf("D");
     const { id, name, batteryPercentage } = device;
     const lat = get(device, ['positionsByDeviceId', 'nodes', 0, 'latitude']);
     const lng = get(device, ['positionsByDeviceId', 'nodes', 0, 'longitude']);
@@ -61,6 +59,11 @@ export default class ReactMap extends Component {
 
     const start = moment(selectedDate).startOf("D");
     const end = moment(selectedDate).endOf("D");
+
+    const selectedDateNodes = get(device, ['positionsByDeviceId', 'nodes']).filter(node => {
+      return moment(node.positionAt).isBefore(end) && moment(node.positionAt).isAfter(start);
+    });
+    
     if (lat || lng) {
       return (
         <>

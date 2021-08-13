@@ -20,14 +20,14 @@ const SuperDevice = (props) => (
 );
 
 const Devices = (props) => {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date('06/24/2020'));
   return (
     <div className="container">
       <div style={{ marginBottom: 300 }}>
         <ReactDatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} />
       </div>
       <div className="col-12">
-        <Map devices={get(props, ['data', 'allDevices', 'nodes'], [])} />
+        <Map selectedDate={selectedDate} devices={get(props, ['data', 'allDevices', 'nodes'], [])} />
       </div>
     </div>
   );
